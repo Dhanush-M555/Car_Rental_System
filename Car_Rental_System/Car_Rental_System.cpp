@@ -1,13 +1,12 @@
-
-#include <iostream>
-#include <fstream>
-#include <conio.h>
-#include <stdlib.h>
-#include <unistd.h>
-#include <dos.h>
-#include <iomanip>
-#include <windows.h>
-
+#include <iostream>   // Input/output stream operations
+#include <fstream>    // Input/output stream class to operate on files
+#include <limits>     // Provides various properties of the fundamental types
+#include <conio.h>    // Console input/output functions (used for _getch())
+#include <stdlib.h>   // General utilities library (used for system())
+#include <unistd.h>   // Access to the POSIX operating system API
+#include <dos.h>      // DOS-specific functions (may not be available on all systems)
+#include <iomanip>    // Formatting and manipulators for streams
+#include <windows.h>  // Windows API functions (used for system("CLS") and sleep())
 using namespace std;
 
 class customer {
@@ -23,6 +22,26 @@ class rent : public customer {
 public:
     int days = 0, rentalfee = 0;
 
+    int getIntegerInput(const string& prompt, const string& errorMessage, int lowerBound, int upperBound) {
+        int userInput;
+        while (true) {
+            cout << prompt;
+            if (!(cin >> userInput)) {
+                // Input was not an integer
+                cout << errorMessage << endl;
+                cin.clear();  // Clear the error flag
+                cin.ignore(numeric_limits<streamsize>::max(), '\n');  // Discard invalid input
+            } else if (userInput < lowerBound || userInput > upperBound) {
+                // Input is out of bounds
+                cout << "Input out of bounds. Please enter a value between "
+                    << lowerBound << " and " << upperBound << "." << endl;
+            } else {
+                // Input is valid
+                break;
+            }
+        }
+        return userInput;
+    }
     void data() {
         int login();
         login();
@@ -46,6 +65,13 @@ public:
             // Add color to the print statements
             cout << "\033[1;36m"; // Cyan color
             cout << "--------------------------------------------------------------------------" << endl;
+
+            if (carmodel != "A" && carmodel != "B" && carmodel != "C" &&
+                carmodel != "D" && carmodel != "E" && carmodel != "F") {
+                cout << "Invalid Car Model. Please try again!" << endl;
+                continue;  // Ask the user to enter the car model again
+            }
+
             if (carmodel == "A") {
                 system("CLS");
                 cout << "You have chosen Tesla model 2023" << endl;
@@ -55,7 +81,7 @@ public:
                     inA.getline(str, 200);
                     if (inA) cout << str << endl;
                 }
-                sleep(2);
+                Sleep(2000);
             }
             // Add color to the print statements
             cout << "\033[1;32m"; // Green color
@@ -68,7 +94,7 @@ public:
                     inB.getline(str, 200);
                     if (inB) cout << str << endl;
                 }
-                sleep(2);
+                Sleep(2000);
             }
             // Add color to the print statements
             cout << "\033[1;33m"; // Yellow color
@@ -81,7 +107,7 @@ public:
                     inC.getline(str, 200);
                     if (inC) cout << str << endl;
                 }
-                sleep(2);
+                Sleep(2000);
             }
             // Add color to the print statements
             cout << "\033[1;34m"; // Blue color
@@ -94,7 +120,7 @@ public:
                     inD.getline(str, 200);
                     if (inD) cout << str << endl;
                 }
-                sleep(2);
+                Sleep(2000);
             }
             // Add color to the print statements
             cout << "\033[1;35m"; // Purple color
@@ -107,7 +133,7 @@ public:
                     inE.getline(str, 200);
                     if (inE) cout << str << endl;
                 }
-                sleep(2);
+                Sleep(2000);
             }
             // Add color to the print statements
             cout << "\033[1;31m"; // Red color
@@ -120,7 +146,7 @@ public:
                     inF.getline(str, 200);
                     if (inF) cout << str << endl;
                 }
-                sleep(2);
+                Sleep(2000);
             }
             // Add color to the print statements
             cout << "\033[1;31m"; // Red color
@@ -136,16 +162,15 @@ public:
 
         cout << "Please select a Car No. : ";
         cin >> carnumber;
-        cout << "Number of hours you wish to rent the car: ";
-        cin >> days;
+        days = getIntegerInput("Number of hours you wish to rent the car: ", "Invalid input. Please enter a valid number.", 1, 100);
         cout << endl;
     }
 
     void calculate() {
-        sleep(1);
+        Sleep(1000);
         system("CLS");
         cout << "Calculating rent. Please wait..." << endl;
-        sleep(2);
+        Sleep(2000);;
 
         // Add color to the print statements
         cout << "\033[1;35m"; // Purple color
@@ -174,7 +199,7 @@ public:
         cout << "	| Customer Name:" << "-----------------|" << setw(10) << customername << " |" << endl;
         cout << "	| Car Model :" << "--------------------|" << setw(10) << carmodel << " |" << endl;
         cout << "	| Car No. :" << "----------------------|" << setw(10) << carnumber << " |" << endl;
-        cout << "	| Number of days :" << "---------------|" << setw(10) << days << " |" << endl;
+        cout << "	| Number of Hours :" << "---------------|" << setw(10) << days << " |" << endl;
         cout << "	| Your Rental Amount is :" << "--------|" << setw(6) <<"Rs."<< rentalfee << " |" << endl;
         cout << "	| Caution Money :" << "----------------|" << setw(10) << "0" << " |" << endl;
         cout << "	| Advanced :" << "---------------------|" << setw(10) << "0" << " |" << endl;
@@ -209,7 +234,7 @@ public:
     billFile << "	| Customer Name:" << "-----------------|" << setw(10) << customername << " |" << endl;
     billFile << "	| Car Model :" << "--------------------|" << setw(10) << carmodel << " |" << endl;
     billFile << "	| Car No. :" << "----------------------|" << setw(10) << carnumber << " |" << endl;
-    billFile << "	| Number of days :" << "---------------|" << setw(10) << days << " |" << endl;
+    billFile << "	| Number of Hours :" << "---------------|" << setw(10) << days << " |" << endl;
     billFile << "	| Your Rental Amount is :" << "--------|" << setw(6) << "Rs."<< rentalfee << " |" << endl;
     billFile << "	| Caution Money :" << "----------------|" << setw(10) << "0" << " |" << endl;
     billFile << "	| Advanced :" << "---------------------|" << setw(10) << "0" << " |" << endl;
@@ -239,11 +264,11 @@ public:
             if (in) cout << str << endl;
         }
         in.close();
-        sleep(1);
+        Sleep(1000);
         cout << "\nStarting the program please wait....." << endl;
-        sleep(1);
+        Sleep(1000);
         cout << "\nloading up files....." << endl;
-        sleep(1);
+        Sleep(1000);
         system("CLS");
     }
 };
