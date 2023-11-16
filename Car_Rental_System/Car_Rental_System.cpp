@@ -9,6 +9,8 @@
 #include <windows.h>  // Windows API functions (used for system("CLS") and sleep())
 using namespace std;
 
+string billname="Bill0.txt";
+int billcount=1;
 class customer {
 private:
 public:
@@ -17,7 +19,6 @@ public:
     string carnumber;
     char data;
 };
-
 class rent : public customer {
 public:
     int days = 0, rentalfee = 0;
@@ -36,7 +37,6 @@ public:
                 cout << "Input out of bounds. Please enter a value between "
                     << lowerBound << " and " << upperBound << "." << endl;
             } else {
-                // Input is valid
                 break;
             }
         }
@@ -61,17 +61,13 @@ public:
             cout << "\tChoose a Car from the above options: ";
             cin >> carmodel;
             cout << endl;
-
-            // Add color to the print statements
-            cout << "\033[1;36m"; // Cyan color
+            cout << "\033[1;36m";
             cout << "--------------------------------------------------------------------------" << endl;
-
             if (carmodel != "A" && carmodel != "B" && carmodel != "C" &&
                 carmodel != "D" && carmodel != "E" && carmodel != "F") {
                 cout << "Invalid Car Model. Please try again!" << endl;
-                continue;  // Ask the user to enter the car model again
+                continue;
             }
-
             if (carmodel == "A") {
                 system("CLS");
                 cout << "You have chosen Tesla model 2023" << endl;
@@ -83,8 +79,7 @@ public:
                 }
                 Sleep(2000);
             }
-            // Add color to the print statements
-            cout << "\033[1;32m"; // Green color
+            cout << "\033[1;32m"; 
             if (carmodel == "B") {
                 system("CLS");
                 cout << "You have chosen Hyundai model 2020" << endl;
@@ -96,8 +91,7 @@ public:
                 }
                 Sleep(2000);
             }
-            // Add color to the print statements
-            cout << "\033[1;33m"; // Yellow color
+            cout << "\033[1;33m";
             if (carmodel == "C") {
                 system("CLS");
                 cout << "You have chosen Ford model 2022" << endl;
@@ -109,8 +103,7 @@ public:
                 }
                 Sleep(2000);
             }
-            // Add color to the print statements
-            cout << "\033[1;34m"; // Blue color
+            cout << "\033[1;34m";
             if (carmodel == "D") {
                 system("CLS");
                 cout << "You have chosen Toyota Camry" << endl;
@@ -122,8 +115,7 @@ public:
                 }
                 Sleep(2000);
             }
-            // Add color to the print statements
-            cout << "\033[1;35m"; // Purple color
+            cout << "\033[1;35m";
             if (carmodel == "E") {
                 system("CLS");
                 cout << "You have chosen Honda Accord" << endl;
@@ -135,8 +127,7 @@ public:
                 }
                 Sleep(2000);
             }
-            // Add color to the print statements
-            cout << "\033[1;31m"; // Red color
+            cout << "\033[1;31m";
             if (carmodel == "F") {
                 system("CLS");
                 cout << "You have chosen Lamborghini Huracán" << endl;
@@ -148,18 +139,15 @@ public:
                 }
                 Sleep(2000);
             }
-            // Add color to the print statements
-            cout << "\033[1;31m"; // Red color
+            cout << "\033[1;31m";
             if (carmodel != "A" && carmodel != "B" && carmodel != "C" &&
                 carmodel != "D" && carmodel != "E" && carmodel != "F")
                 cout << "Invalid Car Model. Please try again!" << endl;
         } while (carmodel != "A" && carmodel != "B" && carmodel != "C" &&
                 carmodel != "D" && carmodel != "E" && carmodel != "F");
-        // Add color to the print statements
-        cout << "\033[1;36m"; // Cyan color
+        cout << "\033[1;36m";
         cout << "--------------------------------------------------------------------------" << endl;
         cout << "Please provide the following information: " << endl;
-
         cout << "Please select a Car No. : ";
         cin >> carnumber;
         days = getIntegerInput("Number of hours you wish to rent the car: ", "Invalid input. Please enter a valid number.", 1, 100);
@@ -171,10 +159,7 @@ public:
         system("CLS");
         cout << "Calculating rent. Please wait..." << endl;
         Sleep(2000);;
-
-        // Add color to the print statements
-        cout << "\033[1;35m"; // Purple color
-
+        cout << "\033[1;35m";
         if (carmodel == "A" || carmodel == "a")
             rentalfee = days * 250;
         else if (carmodel == "B" || carmodel == "b")
@@ -182,19 +167,18 @@ public:
         else if (carmodel == "C" || carmodel == "c")
             rentalfee = days * 215;
         else if (carmodel == "D" || carmodel == "d")
-            rentalfee = days * 280; // Adjust the rental fee for Car D
+            rentalfee = days * 280;
         else if (carmodel == "E" || carmodel == "e")
-            rentalfee = days * 220; // Adjust the rental fee for Car E
+            rentalfee = days * 220;
         else if (carmodel == "F" || carmodel == "f")
-            rentalfee = days * 5000; // Adjust the rental fee for Car F
+            rentalfee = days * 5000;
     }
 
     void showrent() {
-        // Reset color to default
-        cout << "\033[1;31m"; // Red color
+        cout << "\033[1;31m";
         cout << "\n                       Car Rental - Customer Invoice                  " << endl;
-        cout << "\033[0m"; // Reset color
-        cout << "	///////////////////////////////////////////////////////////" << endl;
+        cout << "\033[0m";
+        cout << "";
         cout << "	| Invoice No. :" << "------------------|" << setw(10) << "#BnC92243" << " |" << endl;
         cout << "	| Customer Name:" << "-----------------|" << setw(10) << customername << " |" << endl;
         cout << "	| Car Model :" << "--------------------|" << setw(10) << carmodel << " |" << endl;
@@ -205,9 +189,9 @@ public:
         cout << "	| Advanced :" << "---------------------|" << setw(10) << "0" << " |" << endl;
         cout << "	 ________________________________________________________" << endl;
         cout << "\n";
-        cout << "\033[1;31m"; // Red color
+        cout << "\033[1;31m";
         cout << "	| Total Rental Amount is :" << "-------|" << setw(6) <<"Rs."<< rentalfee << " |" << endl;
-        cout << "\033[0m"; // Reset color
+        cout << "\033[0m";
         cout << "	 ________________________________________________________" << endl;
         int f;
         system("PAUSE");
@@ -230,7 +214,7 @@ public:
 
     billFile << "\n                       Car Rental - Customer Invoice                  " << endl;
     billFile << "	///////////////////////////////////////////////////////////" << endl;
-    billFile << "	| Invoice No. :" << "------------------|" << setw(10) << "#BnC92243" << " |" << endl;
+    billFile << "	| Invoice No. :" << "------------------|" << setw(10) << "#BnC"<<billcount << " |" << endl;
     billFile << "	| Customer Name:" << "-----------------|" << setw(10) << customername << " |" << endl;
     billFile << "	| Car Model :" << "--------------------|" << setw(10) << carmodel << " |" << endl;
     billFile << "	| Car No. :" << "----------------------|" << setw(10) << carnumber << " |" << endl;
@@ -273,25 +257,19 @@ public:
     }
 };
 #include <fstream>
-void generateCSV(const string& carNumber, int rentedHours, int price, const string& customerName) {
-    ofstream csvFile("rental_details.csv", ios::out);  // Open the file in write mode
+void generateTxt(const string& carNumber, int rentedHours, int price, const string& customerName) {
+    ofstream txtFile("rental_details.txt", ios::app);
 
-    if (!csvFile.is_open()) {
-        cout << "Error opening the CSV file." << endl;
+    if (!txtFile.is_open()) {
+        cout << "Error opening the text file." << endl;
         return;
     }
 
-    // Write the header line if the file is empty
-    ifstream checkFile("rental_details.csv");
-    if (checkFile.peek() == ifstream::traits_type::eof()) {
-        csvFile << "Car No.,Rented Hours,Price,Name\n";
-    }
-    checkFile.close();
+    // Write the details to the text file in CSV format
+    txtFile << carNumber << "," << rentedHours << "," << price << "," << customerName << "\n";
 
-    // Write the details to the CSV file
-    csvFile << carNumber << "," << rentedHours << "," << price << "," << customerName << "\n";
-
-    csvFile.close();
+    txtFile.close();
+    cout << "Text file appended successfully: rental_details.txt" << endl;
 }
 
 int main() {
@@ -303,24 +281,19 @@ int main() {
         obj2.data();
         obj2.calculate();
         obj2.showrent();
-        generateCSV(obj2.carnumber, obj2.days, obj2.rentalfee, obj2.customername);
-        obj2.generateBillFile("Bill.txt");
-        // Ask the user if they want to continue renting cars
-        cout << "Enter 'exit', '-1', or 'bruh' to stop renting cars, otherwise press any key: ";
+        generateTxt(obj2.carnumber, obj2.days, obj2.rentalfee, obj2.customername);
+        obj2.generateBillFile(billname);
+        billname="Bill"+to_string(billcount)+".txt";
+        billcount++;
+        cout << "Enter 'exit' to exit otherwise press any key: ";
         string userInput;
         cin >> userInput;
-
         if (userInput == "exit" || userInput == "-1" || userInput == "bruh") {
             cout << "Exiting car rental program. Thank you!\n";
             break;
         }
-
-        // Save rental details to the CSV file
-
-        // Clear the screen for the next iteration
         system("CLS");
     }
-
     return 0;
 }
 
