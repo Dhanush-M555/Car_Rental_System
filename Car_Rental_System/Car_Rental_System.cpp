@@ -4,7 +4,6 @@
 #include <conio.h>    // Console input/output functions (used for _getch())
 #include <stdlib.h>   // General utilities library (used for system())
 #include <unistd.h>   // Access to the POSIX operating system API
-#include <dos.h>      // DOS-specific functions (may not be available on all systems)
 #include <iomanip>    // Formatting and manipulators for streams
 #include <windows.h>  // Windows API functions (used for system("CLS") and sleep())
 using namespace std;
@@ -19,21 +18,136 @@ public:
     string carnumber;
     char data;
 };
+
+class Car {
+public:
+    virtual void displayDetails() const = 0;
+    virtual int calculateRentalFee(int days) const = 0;
+    virtual ~Car() {}
+};
+
+class Tesla2023 : public Car {
+    int price=250;
+public:
+    void displayDetails() const override {
+        cout << "You have chosen Tesla model 2023" << endl;
+        ifstream inA("A.txt");
+        char str[200];
+        while (inA) {
+            inA.getline(str, 200);
+            if (inA) cout << str << endl;
+        }
+        Sleep(2000);
+    }
+    int calculateRentalFee(int days) const override {
+        return days * price;
+    }
+};
+
+class Hyundai2020 : public Car {
+    int price=175;
+public:
+    void displayDetails() const override {
+        cout << "You have chosen Hyundai model 2020" << endl;
+        ifstream inA("B.txt");
+        char str[200];
+        while (inA) {
+            inA.getline(str, 200);
+            if (inA) cout << str << endl;
+        }
+        Sleep(2000);
+    }
+    int calculateRentalFee(int days) const override {
+        return days * price;
+    }
+};
+
+class Ford2022 : public Car {
+    int price=215;
+public:
+    void displayDetails() const override {
+        cout << "You have chosen Ford 2022" << endl;
+        ifstream inA("C.txt");
+        char str[200];
+        while (inA) {
+            inA.getline(str, 200);
+            if (inA) cout << str << endl;
+        }
+        Sleep(2000);
+    }
+    int calculateRentalFee(int days) const override {
+        return days * price;
+    }
+};
+
+class ToyotaCamry : public Car {
+    int price=280;
+public:
+    void displayDetails() const override {
+        cout << "You have chosen Ford 2022" << endl;
+        ifstream inA("D.txt");
+        char str[200];
+        while (inA) {
+            inA.getline(str, 200);
+            if (inA) cout << str << endl;
+        }
+        Sleep(2000);
+    }
+    int calculateRentalFee(int days) const override {
+        return days * price;
+    }
+};
+
+class HondaAccord : public Car {
+        int price=220;
+public:
+    void displayDetails() const override {
+        cout << "You have chosen Ford 2022" << endl;
+        ifstream inA("E.txt");
+        char str[200];
+        while (inA) {
+            inA.getline(str, 200);
+            if (inA) cout << str << endl;
+        }
+        Sleep(2000);
+    }
+    int calculateRentalFee(int days) const override {
+        return days * price;
+    }
+};
+
+class Lamborghini : public Car {
+        int price=5000;
+public:
+    void displayDetails() const override {
+        cout << "You have chosen Ford 2022" << endl;
+        ifstream inA("F.txt");
+        char str[200];
+        while (inA) {
+            inA.getline(str, 200);
+            if (inA) cout << str << endl;
+        }
+        Sleep(2000);
+    }
+    int calculateRentalFee(int days) const override {
+        return days * price;
+    }
+};
+
+
 class rent : public customer {
 public:
+    Car* selectedCar;
     int days = 0, rentalfee = 0;
-
     int getIntegerInput(const string& prompt, const string& errorMessage, int lowerBound, int upperBound) {
         int userInput;
         while (true) {
             cout << prompt;
             if (!(cin >> userInput)) {
-                // Input was not an integer
                 cout << errorMessage << endl;
-                cin.clear();  // Clear the error flag
-                cin.ignore(numeric_limits<streamsize>::max(), '\n');  // Discard invalid input
+                cin.clear();
+                cin.ignore(numeric_limits<streamsize>::max(), '\n'); 
             } else if (userInput < lowerBound || userInput > upperBound) {
-                // Input is out of bounds
                 cout << "Input out of bounds. Please enter a value between "
                     << lowerBound << " and " << upperBound << "." << endl;
             } else {
@@ -70,73 +184,37 @@ public:
             }
             if (carmodel == "A") {
                 system("CLS");
-                cout << "You have chosen Tesla model 2023" << endl;
-                ifstream inA("A.txt");
-                char str[200];
-                while (inA) {
-                    inA.getline(str, 200);
-                    if (inA) cout << str << endl;
-                }
+                selectedCar = new Tesla2023();
                 Sleep(2000);
             }
             cout << "\033[1;32m"; 
             if (carmodel == "B") {
                 system("CLS");
-                cout << "You have chosen Hyundai model 2020" << endl;
-                ifstream inB("B.txt");
-                char str[200];
-                while (inB) {
-                    inB.getline(str, 200);
-                    if (inB) cout << str << endl;
-                }
+                selectedCar = new Hyundai2020();
                 Sleep(2000);
             }
             cout << "\033[1;33m";
             if (carmodel == "C") {
                 system("CLS");
-                cout << "You have chosen Ford model 2022" << endl;
-                ifstream inC("C.txt");
-                char str[200];
-                while (inC) {
-                    inC.getline(str, 200);
-                    if (inC) cout << str << endl;
-                }
+                selectedCar = new Ford2022();
                 Sleep(2000);
             }
             cout << "\033[1;34m";
             if (carmodel == "D") {
                 system("CLS");
-                cout << "You have chosen Toyota Camry" << endl;
-                ifstream inD("D.txt");
-                char str[200];
-                while (inD) {
-                    inD.getline(str, 200);
-                    if (inD) cout << str << endl;
-                }
+                selectedCar = new ToyotaCamry();
                 Sleep(2000);
             }
             cout << "\033[1;35m";
             if (carmodel == "E") {
                 system("CLS");
-                cout << "You have chosen Honda Accord" << endl;
-                ifstream inE("E.txt");
-                char str[200];
-                while (inE) {
-                    inE.getline(str, 200);
-                    if (inE) cout << str << endl;
-                }
+                selectedCar = new Tesla2023();
                 Sleep(2000);
             }
             cout << "\033[1;31m";
             if (carmodel == "F") {
                 system("CLS");
-                cout << "You have chosen Lamborghini Huracán" << endl;
-                ifstream inF("F.txt");
-                char str[200];
-                while (inF) {
-                    inF.getline(str, 200);
-                    if (inF) cout << str << endl;
-                }
+                selectedCar = new Tesla2023();
                 Sleep(2000);
             }
             cout << "\033[1;31m";
@@ -145,6 +223,7 @@ public:
                 cout << "Invalid Car Model. Please try again!" << endl;
         } while (carmodel != "A" && carmodel != "B" && carmodel != "C" &&
                 carmodel != "D" && carmodel != "E" && carmodel != "F");
+        selectedCar->displayDetails();
         cout << "\033[1;36m";
         cout << "--------------------------------------------------------------------------" << endl;
         cout << "Please provide the following information: " << endl;
@@ -160,20 +239,8 @@ public:
         cout << "Calculating rent. Please wait..." << endl;
         Sleep(2000);;
         cout << "\033[1;35m";
-        if (carmodel == "A" || carmodel == "a")
-            rentalfee = days * 250;
-        else if (carmodel == "B" || carmodel == "b")
-            rentalfee = days * 175;
-        else if (carmodel == "C" || carmodel == "c")
-            rentalfee = days * 215;
-        else if (carmodel == "D" || carmodel == "d")
-            rentalfee = days * 280;
-        else if (carmodel == "E" || carmodel == "e")
-            rentalfee = days * 220;
-        else if (carmodel == "F" || carmodel == "f")
-            rentalfee = days * 5000;
+        rentalfee=selectedCar->calculateRentalFee(days);
     }
-
     void showrent() {
         cout << "\033[1;31m";
         cout << "\n                       Car Rental - Customer Invoice                  " << endl;
@@ -211,7 +278,6 @@ public:
         cout << "Error creating the bill file." << endl;
         return;
     }
-
     billFile << "\n                       Car Rental - Customer Invoice                  " << endl;
     billFile << "	///////////////////////////////////////////////////////////" << endl;
     billFile << "	| Invoice No. :" << "------------------|" << setw(10) << "#BnC"<<billcount << " |" << endl;
@@ -226,19 +292,19 @@ public:
     billFile << "\n";
     billFile << "	| Total Rental Amount is :" << "-------|" << setw(6) << "Rs."<< rentalfee << " |" << endl;
     billFile << "	 ________________________________________________________" << endl;
-
     billFile.close();
     cout << "Bill file generated successfully: " << fileName << endl;
 }
 
+    ~rent() {
+        delete selectedCar;
+    }
 };
 
 class welcome {
-    ;
 public:
     int welcum() {
         ifstream in("welcome.txt");
-
         if (!in) {
             cout << "Cannot open input file.\n";
         }
@@ -256,26 +322,24 @@ public:
         system("CLS");
     }
 };
-#include <fstream>
-void generateTxt(const string& carNumber, int rentedHours, int price, const string& customerName) {
-    ofstream txtFile("rental_details.txt", ios::app);
 
-    if (!txtFile.is_open()) {
-        cout << "Error opening the text file." << endl;
-        return;
+void generateTxt(const std::string& carNumber, int rentedHours, int price, const std::string& customerName) {
+    try {
+        std::ofstream txtFile("rental_details.txt", std::ios::app);
+        if (!txtFile.is_open()) {
+            std::cerr << "Error opening the text file." << std::endl;
+            return;
+        }
+        txtFile << carNumber << "," << rentedHours << "," << price << "," << customerName << "\n";
+        txtFile.close();
+        std::cout << "Text file appended successfully: rental_details.txt" << std::endl;
+    } catch (const std::exception& e) {
+        std::cerr << "Error: " << e.what() << std::endl;
     }
-
-    // Write the details to the text file in CSV format
-    txtFile << carNumber << "," << rentedHours << "," << price << "," << customerName << "\n";
-
-    txtFile.close();
-    cout << "Text file appended successfully: rental_details.txt" << endl;
 }
-
 int main() {
     welcome obj1;
     obj1.welcum();
-
     while (true) {
         rent obj2;
         obj2.data();
@@ -301,9 +365,9 @@ int main() {
 int login() {
     string pass = "";
     char ch;
-    cout << "\033[1;32m"; // Green color
+    cout << "\033[1;32m";
     cout << "\n\n\n\n\n\n\n\n\tCAR RENTAL SYSTEM \n\n";
-    cout << "\033[0m"; // Reset color
+    cout << "\033[0m";
     cout << "\t------------------------------";
     cout << "\n\tLOGIN \n";
     cout << "\t------------------------------\n\n";
@@ -325,3 +389,4 @@ int login() {
         login();
     }
 }
+
