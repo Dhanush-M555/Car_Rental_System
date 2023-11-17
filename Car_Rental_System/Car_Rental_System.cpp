@@ -17,6 +17,17 @@ public:
     string carmodel;
     string carnumber;
     char data;
+    customer()
+    {
+        customername="";
+        carmodel="";
+        carnumber="";
+        data='0';
+    }
+    ~customer()
+    {
+        cout<<"Customer destructor called"<<endl;
+    }
 };
 
 class Car {
@@ -138,7 +149,13 @@ public:
 class rent : public customer {
 public:
     Car* selectedCar;
-    int days = 0, rentalfee = 0;
+    int days, rentalfee;
+    rent()
+    {
+        days=0;
+        rentalfee=0;
+        selectedCar=nullptr;
+    }
     int getIntegerInput(const string& prompt, const string& errorMessage, int lowerBound, int upperBound) {
         int userInput;
         while (true) {
@@ -298,6 +315,7 @@ public:
 
     ~rent() {
         delete selectedCar;
+        cout<<"rent destructor called"<<endl;
     }
 };
 
