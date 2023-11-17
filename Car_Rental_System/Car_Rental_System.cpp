@@ -208,13 +208,13 @@ public:
             cout << "\033[1;35m";
             if (carmodel == "E") {
                 system("CLS");
-                selectedCar = new Tesla2023();
+                selectedCar = new HondaAccord();
                 Sleep(2000);
             }
             cout << "\033[1;31m";
             if (carmodel == "F") {
                 system("CLS");
-                selectedCar = new Tesla2023();
+                selectedCar = new Lamborghini();
                 Sleep(2000);
             }
             cout << "\033[1;31m";
@@ -271,8 +271,8 @@ public:
         }
         inf.close();
     }
-
-    void generateBillFile(const string& fileName) {
+    void generateBillFile(const string& fileName) 
+    {
     ofstream billFile(fileName);
     if (!billFile.is_open()) {
         cout << "Error creating the bill file." << endl;
@@ -360,8 +360,6 @@ int main() {
     }
     return 0;
 }
-
-
 int login() {
     string pass = "";
     char ch;
